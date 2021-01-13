@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false" style="background-color:#eeeeee">
+    <mat-toolbar>Menu</mat-toolbar>
+    
+
+    <ng-material-multilevel-menu [configuration]='config' [items]='menuItems' (selectedItem)="selectedItem($event)">
+    </ng-material-multilevel-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color:#512da8;color:white;">
+      <button type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <img src="/assets/car.svg" class="logo" alt="image"><span> Used Car Management</span>
+      <div class="spacer"></div>
+      <button mat-button [routerLink]="['/home']">Home</button>
+      <a mat-button *ngIf="isLogged"> <mat-icon>account_circle</mat-icon> {{userName}}</a>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button *ngIf="isLogged" mat-button (click)="doLogout()"> Logout</button>
+        <a *ngIf="!isLogged" mat-icon-button [routerLink]="['/login']"><mat-icon>login</mat-icon> Login</a>
+      </mat-menu>
+    </mat-toolbar>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div class="top-container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,31 @@
+<div class="card-wrapper">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="f-w">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput formControlName="username" required />
+          <mat-error *ngIf="f.username.touched && f.username.errors">Username required.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="f-w">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" required />
+          <mat-error *ngIf="f.password.touched && f.password.errors">Password required.</mat-error>
+        </mat-form-field>
+        <div class="f-w">
+          <mat-spinner-button [options]="loginButtonOptions" type="submit">
+
+          </mat-spinner-button>
+        </div>
+        <div class="f-w">
+          <mat-error *ngIf="loginError">{{loginError}}</mat-error>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
